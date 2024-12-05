@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Backend\Calculation.API\Calculation.API.csproj" />
-    <ProjectReference Include="..\..\Frontend_ASP_CORE\Calculation Tool\Calculation.Tool.csproj" />
+    <ProjectReference Include="..\Calculation.Common\Calculation.CommonTests.csproj" />
+    <ProjectReference Include="..\Calculation.Domain\Calculation.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

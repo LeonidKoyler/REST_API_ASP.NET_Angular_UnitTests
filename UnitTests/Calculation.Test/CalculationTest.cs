@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using Calculation.CommonTests;
 using Calculation_Tool.Models;
 using Newtonsoft.Json;
 
@@ -61,7 +62,7 @@ namespace Calculation.Test
 
             var responceModel = await SendRequest(httpclient, model);
 
-            AssertData(responceModel, 0, 0, 0, 0, 100);
+            Utility.AssertFrontEnd(responceModel, 0, 0, 0, 0,  0);
 
         }
 
@@ -85,7 +86,7 @@ namespace Calculation.Test
 
             var responceModel = await SendRequest(httpclient, model);
 
-            AssertData(responceModel, 1000, 50, 20, 10, 100);
+            Utility.AssertFrontEnd(responceModel, 1000, 50, 20, 10, 1180);
 
         }
 
@@ -108,7 +109,7 @@ namespace Calculation.Test
 
             var responceModel = await SendRequest(httpclient, model);
 
-            AssertData(responceModel, 1800, 180, 72, 15, 100);
+            Utility.AssertFrontEnd(responceModel, 1800, 180, 72, 15, 2167);
 
         }
 
@@ -120,15 +121,6 @@ namespace Calculation.Test
             return JsonConvert.DeserializeObject<VehicleModel>(apiResponse);
         }
 
-        private void AssertData(VehicleModel responceModel, decimal basePrice,
-            decimal basicBuyerFee, decimal sellersSpecialFee, decimal associationCost, decimal storageFee)
-        {
-            Assert.IsNotNull(responceModel);
-            Assert.AreEqual(basePrice, responceModel.BasePrice);
-            Assert.AreEqual(basicBuyerFee, responceModel.BasicBuyerFee);
-            Assert.AreEqual(sellersSpecialFee, responceModel.SellersSpecialFee);
-            Assert.AreEqual(associationCost, responceModel.AssociationCost);
-            Assert.AreEqual(storageFee, responceModel.StorageFee);
-        }
+     
     }
 }

@@ -13,6 +13,11 @@ namespace Calculation.Domain.Service
 
         public async Task<Vehicle> CalculateFees(decimal basePrice, Common.Common.VehicleType type, CancellationToken token = default)
         {
+            if (basePrice <= 0)
+            {
+                return new Vehicle { StorageFee = 0 };
+            }
+
             var basicBuyerFeeTask = Task.Run(() => CalculateBasicBuyerFee(basePrice, type), token);
             var sellersSpecialFeeTask = Task.Run(() => CalculateSellersSpecialFee(basePrice, type), token);
             var associationCostTask = Task.Run(() => CalculateAssociationFee(basePrice), token);
@@ -38,7 +43,7 @@ namespace Calculation.Domain.Service
             return vehicle;
         }
 
-        private decimal CalculateBasicBuyerFee(decimal price, Common.Common.VehicleType type, CancellationToken token = default)
+        protected virtual decimal CalculateBasicBuyerFee(decimal price, Common.Common.VehicleType type, CancellationToken token = default)
         {
             decimal fee = price * 0.10m;
 
@@ -54,12 +59,12 @@ namespace Calculation.Domain.Service
             return fee;
         }
 
-        private decimal CalculateSellersSpecialFee(decimal price, Common.Common.VehicleType type)
+        protected decimal CalculateSellersSpecialFee(decimal price, Common.Common.VehicleType type)
         {
             return type == Common.Common.VehicleType.Luxury ? price * 0.04m : price * 0.02m;
         }
 
-        private decimal CalculateAssociationFee(decimal price)
+        protected decimal CalculateAssociationFee(decimal price)
         {
             if (price < 0)
             {
