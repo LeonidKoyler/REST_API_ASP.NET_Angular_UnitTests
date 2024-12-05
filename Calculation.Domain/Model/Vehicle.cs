@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Calculation.Common.Common;
+using static Calculation.CommonData.Common;
 
 namespace Calculation.Domain.Model
 {

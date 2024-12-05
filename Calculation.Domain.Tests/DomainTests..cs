@@ -1,8 +1,7 @@
 using Calculation.CommonTests;
-using Calculation.Domain.Model;
 using Calculation.Domain.Service;
 using Moq;
-using static Calculation.Common.Common;
+using static Calculation.CommonData.Common;
 
 namespace Calculation.Domain.Tests
 {

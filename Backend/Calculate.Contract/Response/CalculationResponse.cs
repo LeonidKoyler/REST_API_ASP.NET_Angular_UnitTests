@@ -1,4 +1,4 @@
-﻿using static Calculation.Common.Common;
+﻿using static Calculation.CommonData.Common;
 
 namespace Calculation.Contract.Response
 {

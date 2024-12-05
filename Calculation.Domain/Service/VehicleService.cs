@@ -1,17 +1,13 @@
-﻿using Calculation.Domain.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Calculation.CommonData;
+using Calculation.Domain.Model;
+ 
 namespace Calculation.Domain.Service
 {
     public class VehicleService : IVehicleService
     {
         private const short StorageFee = 100;
 
-        public async Task<Vehicle> CalculateFees(decimal basePrice, Common.Common.VehicleType type, CancellationToken token = default)
+        public async Task<Vehicle> CalculateFees(decimal basePrice, CommonData.Common.VehicleType type, CancellationToken token = default)
         {
             if (basePrice <= 0)
             {
@@ -43,25 +39,25 @@ namespace Calculation.Domain.Service
             return vehicle;
         }
 
-        protected virtual decimal CalculateBasicBuyerFee(decimal price, Common.Common.VehicleType type, CancellationToken token = default)
+        protected virtual decimal CalculateBasicBuyerFee(decimal price, Common.VehicleType type, CancellationToken token = default)
         {
-            decimal fee = price * 0.10m;
+            decimal fee = price * Common.BasicBuyerFee;
 
-            if (type == Common.Common.VehicleType.Common)
+            if (type == Common.VehicleType.Common)
             {
-                fee = Math.Clamp(fee, 10, 50);
+                fee = Math.Clamp(fee, Common.BasicMinimum, Common.BasicMaximum);
             }
-            else if (type == Common.Common.VehicleType.Luxury)
+            else if (type == Common.VehicleType.Luxury)
             {
-                fee = Math.Clamp(fee, 25, 200);
+                fee = Math.Clamp(fee, Common.FeeMinimum, Common.FeeMaximum);
             }
 
             return fee;
         }
 
-        protected decimal CalculateSellersSpecialFee(decimal price, Common.Common.VehicleType type)
+        protected decimal CalculateSellersSpecialFee(decimal price, Common.VehicleType type)
         {
-            return type == Common.Common.VehicleType.Luxury ? price * 0.04m : price * 0.02m;
+            return type == Common.VehicleType.Luxury ? price * Common.LuxuryFee : price * Common.CommonFee;
         }
 
         protected decimal CalculateAssociationFee(decimal price)

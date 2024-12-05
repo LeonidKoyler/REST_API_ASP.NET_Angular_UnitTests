@@ -1,5 +1,5 @@
 ﻿using Calculation.Domain.Model;
-using static Calculation.Common.Common;
+using static Calculation.CommonData.Common;
 
 namespace Calculation.Application.Services
 {

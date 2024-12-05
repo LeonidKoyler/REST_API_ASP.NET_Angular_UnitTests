@@ -4,7 +4,7 @@ using Calculation.Contract.Request;
 using Calculation.Domain.Service;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using static Calculation.Common.Common;
+using static Calculation.CommonData.Common;
 
 namespace Calculation.API.Controllers
 {
@@ -26,7 +26,7 @@ namespace Calculation.API.Controllers
         [HttpPost(ApiEndpoints.CalculatePrice)]
         public async Task<IActionResult> Price([FromBody] CalculationRequest request, CancellationToken token)
         {
-            // todo shuld remove duplication of vehicleType
+            // todo should remove duplication of vehicleType
             VehicleType vehicleType;
             Enum.TryParse(request.Type, true, out vehicleType);
             var updatedPrice = await _vehicleMediator.Send(new GetVehiclePrice(request.BasePrice, vehicleType));
