@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h3 class="row my-4">Vehicle Cost Calculator</h3>
+  <div class="row my-3">
+    <div class="col-md-3">
+      <div>
+        <label for="textInput">Vehicle Base Price:</label>
+        <input type="number" [(ngModel)]="updateInput" name="vehiclePrice" min="0" #price="ngModel" placeholder="Enter base price" required/>
+        <div *ngIf="price.invalid && price.touched" class="alert alert-danger p-0 small text-center">
+            <small *ngIf="price.errors?.required" > Only numbers are allowed. </small>
+            <small *ngIf="price.errors?.min">Price must be greater than 0.</small>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-md-3" >
+      <div>
+        <label for="combobox">Vehicle Type</label>
+        <select class="form-select form-select-sm" [(ngModel)]="selectedVehicleType"    
+             (change)="onSelectionChange($event)" >
+          <option *ngFor="let option of vechileType" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <table *ngIf="vehicleData.length>0" class="table table-striped">
+        <thead>
+              <tr>
+                <th>Vehicle Type</th>
+                <th>Base Price</th>
+                <th>Basic Buyer Fee</th>
+                <th>Seller's Special Fee</th>
+                <th>Association Cost</th>
+                <th>Storage Fee</th>
+                <th>Total Cost</th>
+              </tr>
+        </thead>
+        <tbody>
+              <tr *ngFor="let vehicle of vehicleData">
+                <td>{{ vehicle.basePrice }}</td>
+                <td>{{ vehicle.vehicleType }}</td>
+                <td>{{ vehicle.basicBuyerFee }}</td>  
+                <td>{{ vehicle.sellersSpecialFee }}</td>
+                <td>{{ vehicle.associationCost }}</td>
+                <td>{{ vehicle.storageFee }}</td>   
+                <td>{{ vehicle.totalCost }}</td>       
+              </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
