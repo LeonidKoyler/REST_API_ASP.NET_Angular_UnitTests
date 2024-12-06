@@ -22,5 +22,6 @@ Select Run Without Debugging to start the ASP.NET Core frontend.
 __Angular Frontend__
 
 Install dependencies:
-Open the Developer PowerShell or terminal, and run the following command to install the required npm packages(npm install).
+Open the Developer PowerShell or terminal, navigate to ...\Frontend_Angular\Angular.Calculation.Tool 
+and run the following command (npm install) to install the required npm packages.
 After the installation is complete, start the Angular frontend by running: npm start 
