@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 import { Vehicle } from './vehicle.model';
 import { VehicleService } from './vehicle.service';
@@ -8,6 +9,7 @@ import { VehicleService } from './vehicle.service';
 })
 export class CalculationComponent implements OnInit {
   private inputValue: number;
+  public errorMessage: string = "";
   vechileType: string[] = ['Common', 'Luxury'];
   vehicleData: Vehicle[] = [];
   selectedVehicleType: string;
@@ -19,9 +21,8 @@ export class CalculationComponent implements OnInit {
   }
 
   
-  // Can be async but for the current function is not relevant
-  // Errors not implemented
-  calculate_price() {
+  //not in use
+  calculate_priceSync() {
     const vehicle: Vehicle = {
       basePrice: this.inputValue,
       type: this.selectedVehicleType,
@@ -42,6 +43,33 @@ export class CalculationComponent implements OnInit {
     },);
   }
 
+  async calculate_price() {
+    const vehicle: Vehicle = {
+      basePrice: this.inputValue,
+      type: this.selectedVehicleType,
+    };
+
+    try {
+      this.errorMessage = "";
+      const data: Vehicle = await firstValueFrom(this.service.calculate(vehicle));
+      const vehicle_price: Vehicle = {
+        basePrice: data.basePrice,
+        type: data.type,
+        basicBuyerFee: data.basicBuyerFee,
+        sellersSpecialFee: data.sellersSpecialFee,
+        associationCost: data.associationCost,
+        storageFee: data.storageFee,
+        totalCost: data.totalCost,
+      };
+
+      this.vehicleData.push(vehicle_price);
+    }
+    catch (error) {
+      this.errorMessage = "Error during calculation"
+      console.log(error);
+    }
+ 
+  }
   set updateInput(value: string) {
     const parsedValue = parseInt(value, 10);
     if (!isNaN(parsedValue) && parsedValue > 0) {
