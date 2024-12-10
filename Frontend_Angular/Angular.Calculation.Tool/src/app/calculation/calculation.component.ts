@@ -51,17 +51,7 @@ export class CalculationComponent implements OnInit {
 
     try {
       this.errorMessage = "";
-      const data: Vehicle = await firstValueFrom(this.service.calculate(vehicle));
-      const vehicle_price: Vehicle = {
-        basePrice: data.basePrice,
-        type: data.type,
-        basicBuyerFee: data.basicBuyerFee,
-        sellersSpecialFee: data.sellersSpecialFee,
-        associationCost: data.associationCost,
-        storageFee: data.storageFee,
-        totalCost: data.totalCost,
-      };
-
+      const vehicle_price: Vehicle = await firstValueFrom(this.service.calculate(vehicle));
       this.vehicleData.push(vehicle_price);
     }
     catch (error) {
