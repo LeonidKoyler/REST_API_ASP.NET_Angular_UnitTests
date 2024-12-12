@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Calculation.Domain\Calculation.Domain.csproj" />
+    <ProjectReference Include="..\Calculation.Domain\Calculation.Domain.csproj" />
     <ProjectReference Include="..\Calculation.Utility\Calculation.Common.csproj" />
   </ItemGroup>
 

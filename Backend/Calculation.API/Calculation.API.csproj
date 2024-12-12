@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Calculation.Domain\Calculation.Domain.csproj" />
     <ProjectReference Include="..\Calculate.Contract\Calculation.Contract.csproj" />
     <ProjectReference Include="..\Calculation.Application\Calculation.Application.csproj" />
+    <ProjectReference Include="..\Calculation.Domain\Calculation.Domain.csproj" />
   </ItemGroup>
 
 </Project>

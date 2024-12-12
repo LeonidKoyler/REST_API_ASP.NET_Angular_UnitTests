@@ -21,11 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.FrontEndTests", "UnitTests\Calculation.Test\Calculation.FrontEndTests.csproj", "{EC63698E-ABDB-4B7E-8F83-74781B414417}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.Domain", "Calculation.Domain\Calculation.Domain.csproj", "{F316AF54-9D76-4A40-B09B-6D78F7190EAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.Domain", "Backend\Calculation.Domain\Calculation.Domain.csproj", "{F316AF54-9D76-4A40-B09B-6D78F7190EAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.Domain.Tests", "Calculation.Domain.Tests\Calculation.Domain.Tests.csproj", "{338ABF55-C031-454E-B353-C88C950B0B93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.Domain.Tests", "UnitTests\Calculation.Domain.Tests\Calculation.Domain.Tests.csproj", "{338ABF55-C031-454E-B353-C88C950B0B93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.CommonTests", "Calculation.Common\Calculation.CommonTests.csproj", "{8DC6874F-BADA-4840-BCAB-3F2A5E882B45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.CommonTests", "UnitTests\Calculation.Common\Calculation.CommonTests.csproj", "{8DC6874F-BADA-4840-BCAB-3F2A5E882B45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Angular", "Angular", "{9FFE4E08-E4A6-4FFC-AAC1-3A90A47925CF}"
 EndProject
