@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: 
+      context: ./Backend/.
+    ports:
+    - '8080:80'
+    container_name:
+      backend 
+    networks:
+      - network1
+
+  frontend:
+    build: 
+      context: ./Frontend_ASP_CORE/Calculation Tool/.
+    ports:
+    - '8081:80'
+    container_name:
+      frontend
+    depends_on:
+     - backend
+    networks:
+      - network1
+networks:
+  network1:
+    driver: bridge

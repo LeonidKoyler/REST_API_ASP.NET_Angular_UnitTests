@@ -12,6 +12,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculation.Common", "Backend\Calculation.Utility\Calculation.Common.csproj", "{FD83353C-72DF-4226-BD91-4428486344F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{16F0E1B1-6ED3-47D3-8537-DD33C7A1262F}"
+	ProjectSection(SolutionItems) = preProject
+		Backend\Dockerfile = Backend\Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Razor", "Razor", "{6F83EC6A-5EDF-48FE-8ABB-50A6E7E418FF}"
 EndProject
@@ -30,6 +33,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Angular", "Angular", "{9FFE4E08-E4A6-4FFC-AAC1-3A90A47925CF}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Angular.Calculation.Tool", "Frontend_Angular\Angular.Calculation.Tool\Angular.Calculation.Tool.esproj", "{3CDD03FC-C794-46C1-9E79-49DEA020F68D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C5D032B-D6F9-4D69-91FC-80FE4E321248}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

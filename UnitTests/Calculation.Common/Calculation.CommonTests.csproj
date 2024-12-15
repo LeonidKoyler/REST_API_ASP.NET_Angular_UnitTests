@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Calculation.Domain\Calculation.Domain.csproj" />
-    <ProjectReference Include="..\..\Calculation.Domain\Calculation.Domain.csproj" />
     <ProjectReference Include="..\..\Frontend_ASP_CORE\Calculation Tool\Calculation.Tool.csproj" />
   </ItemGroup>
 

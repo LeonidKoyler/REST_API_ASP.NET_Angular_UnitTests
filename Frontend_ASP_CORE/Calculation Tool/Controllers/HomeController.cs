@@ -7,7 +7,9 @@ namespace Calculation_Tool.Controllers
 {
     public class HomeController : Controller
     {
-        private string apiUrl = $"https://localhost:7198/api/vehicle";
+        private string apiLocalUrl = $"https://localhost:7198/api/vehicle";
+        private string apiDockerUrl = $"http://backend/api/vehicle";
+
         private readonly ILogger<HomeController> _logger;
         private static List<VehicleModel> _history = new List<VehicleModel>();
         private IApiService _apiService;
@@ -30,19 +32,32 @@ namespace Calculation_Tool.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> CalculateFees(VehicleModel model)
         {
+            //  todoGetting url should be implemented in different way.
+            // This is temporary solution for supporting docker containers and local run from Visual studio.
+            var url = string.Empty;
+            var isRunningFromVisualStudio = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == null &&
+                                Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+            
+            url = isRunningFromVisualStudio ? $"https://localhost:7198/api/vehicle" : $"http://backend/api/vehicle";
+
 
             if (ModelState.IsValid && model.BasePrice > 0)
             {
                 model.Type = model.VehicleType.ToString();
-                model = await _apiService.PostDataAsync(apiUrl, model);
+                model = await _apiService.PostDataAsync(url, model);
                 if (model != null)
                 {
                     _history.Add(model);
                     model.History = _history;
                     ViewBag.BasePrice = model.BasePrice;
+                }
+                else
+                {
+                    throw new Exception("Can't communicate to API");
                 }
             }
 

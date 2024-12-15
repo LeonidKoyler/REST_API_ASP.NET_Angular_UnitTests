@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Backend\Calculation.Domain\Calculation.Domain.csproj" />
-    <ProjectReference Include="..\..\Calculation.Domain\Calculation.Domain.csproj" />
     <ProjectReference Include="..\Calculation.Common\Calculation.CommonTests.csproj" />
   </ItemGroup>
 
