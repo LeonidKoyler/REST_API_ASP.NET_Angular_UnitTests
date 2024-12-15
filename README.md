@@ -35,9 +35,8 @@ __Docker and Docker Compose for containerized development__
 ## Setting Up the Project
 
 Follow these steps to get the project up and running using Docker Compose.
-Navigate to the folder where docker-compose.yaml installed.
 
-In the project directory, run the following command to build the images using Docker Compose:
+In the project directory(where docker-compose.yaml installed), run the following command to build the images using Docker Compose:
 docker-compose build
 
 Once the images are built, you can start the project using the following command:
