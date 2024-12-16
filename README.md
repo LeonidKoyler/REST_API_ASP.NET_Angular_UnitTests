@@ -25,3 +25,19 @@ Install dependencies:
 Open the Developer PowerShell or terminal, navigate to ...\Frontend_Angular\Angular.Calculation.Tool 
 and run the following command (npm install) to install the required npm packages.
 After the installation is complete, start the Angular frontend by running: npm start 
+
+__Docker and Docker Compose for containerized development__
+## Prerequisites
+
+- Docker installed on your machine. You can download it from [here](https://www.docker.com/get-started).
+- Docker Compose installed. For installation instructions, visit [Docker Compose installation](https://docs.docker.com/compose/install/).
+
+## Setting Up the Project
+
+Follow these steps to get the project up and running using Docker Compose.
+
+In the project directory(where docker-compose.yaml installed), run the following command to build the images using Docker Compose:
+docker-compose build
+
+Once the images are built, you can start the project using the following command:
+docker-compose up
