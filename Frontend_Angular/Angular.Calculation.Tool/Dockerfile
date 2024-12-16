@@ -1,3 +1,4 @@
+# currently not in use becouse I run Razor frontend in the container
 FROM node:18-alpine
 
 WORKDIR /usr/src/app

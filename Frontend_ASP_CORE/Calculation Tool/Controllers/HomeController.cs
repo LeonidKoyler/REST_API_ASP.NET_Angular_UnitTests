@@ -7,6 +7,8 @@ namespace Calculation_Tool.Controllers
 {
     public class HomeController : Controller
     {
+        //  todo Getting url should be implemented in different way.
+        // This is temporary solution for supporting docker containers and local run from Visual studio.
         private string apiLocalUrl = $"https://localhost:7198/api/vehicle";
         private string apiDockerUrl = $"http://backend/api/vehicle";
 
@@ -36,12 +38,12 @@ namespace Calculation_Tool.Controllers
         [HttpPost]
         public async Task<IActionResult> CalculateFees(VehicleModel model)
         {
-            //  todoGetting url should be implemented in different way.
+            //  todo Getting url should be implemented in different way.
             // This is temporary solution for supporting docker containers and local run from Visual studio.
             var url = string.Empty;
             var isRunningFromVisualStudio = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == null &&
                                 Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-            
+
             url = isRunningFromVisualStudio ? $"https://localhost:7198/api/vehicle" : $"http://backend/api/vehicle";
 
 
