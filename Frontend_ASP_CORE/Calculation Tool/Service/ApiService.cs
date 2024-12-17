@@ -1,30 +1,29 @@
 ﻿using Calculation_Tool.Controllers;
 using Calculation_Tool.Models;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
 
 namespace Calculation_Tool.Service
 {
     public class ApiService : IApiService
     {
      
-        private readonly HttpClient _httpClient;
-        private readonly ILogger<HomeController> _logger;
+       private readonly IHttpClientFactory _httpClientFactory;
+       private readonly ILogger<HomeController> _logger;
 
-        public ApiService(ILogger<HomeController> logger, HttpClient httpClient)
+        public ApiService(ILogger<HomeController> logger, IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
             _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
       
-        public async Task<VehicleModel> PostDataAsync(string url, VehicleModel model)
+        public async Task<VehicleModel> PostDataAsync(VehicleModel model)
         {
             VehicleModel? responceModel=null;
             var jsonContent = JsonConvert.SerializeObject(model);
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(url, model);
+                var client=_httpClientFactory.CreateClient("vehicleApi");
+                var response = await client.PostAsJsonAsync(client.BaseAddress, model);
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();

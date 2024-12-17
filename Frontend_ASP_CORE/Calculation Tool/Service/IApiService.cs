@@ -4,6 +4,6 @@ namespace Calculation_Tool.Service
 {
     public interface IApiService
     {
-        Task<VehicleModel> PostDataAsync(string url, VehicleModel model);
+        Task<VehicleModel> PostDataAsync(VehicleModel model);
     }
 }
