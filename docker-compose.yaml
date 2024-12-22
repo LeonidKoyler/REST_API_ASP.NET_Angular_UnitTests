@@ -16,6 +16,8 @@ services:
     - '8081:80'
     container_name:
       frontend
+    environment:
+     - DOTNET_RUNNING_IN_CONTAINER=true
     depends_on:
      - backend
     networks:

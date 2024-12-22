@@ -14,7 +14,7 @@ namespace Calculation_Tool
             builder.Services.AddSingleton<IApiService, ApiService>();
             builder.Services.AddHttpClient("vehicleApi", client =>
             {
-                client.BaseAddress = new Uri(url);
+                client.BaseAddress = new Uri(url + "/vehicle");
             });
             var app = builder.Build();
 
@@ -22,7 +22,6 @@ namespace Calculation_Tool
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -40,14 +39,10 @@ namespace Calculation_Tool
             app.Run();
         }
 
-        //  todo Getting url should be implemented in different way.
-        // This is temporary solution for supporting docker containers and local run from Visual studio.
         private static string GetUri()
         {
-            var isRunningFromVisualStudio = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == null &&
-                                            Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-
-            return isRunningFromVisualStudio ? "https://localhost:7198/api/vehicle" : "http://backend/api/vehicle";
+            var isRunningInContainer = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") != null;
+            return isRunningInContainer ? "http://backend/api" : "https://localhost:7198/api";
         }
     }
 }
