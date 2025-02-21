@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-2" style="padding: 10px;">
                 <div class="form-group">
-                    <label for="BasePrice">Vehicle Base Price</label>
+                    <label for="BasePrice" >Vehicle Base Price </label>
                     <input asp-for="BasePrice" class="form-control" min="0" required value="@ViewBag.BasePrice" />
                    
                 </div>
@@ -19,7 +19,7 @@
             <div class="col-2" style="padding: 10px;">
                 <div class="form-group">
                     <label for="VehicleType">Vehicle Type</label>
-                    <select class="form-select" asp-for="VehicleType" class="form-control" required>
+                    <select class="form-select" asp-for="VehicleType" class="form-control" required style="width: 130px;">
                         <option value="Common">Common</option>
                         <option value="Luxury">Luxury</option>
                     </select>

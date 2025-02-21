@@ -14,14 +14,10 @@ namespace Calculation.Domain.Service
                 return new Vehicle { StorageFee = 0 };
             }
 
-            var basicBuyerFeeTask = Task.Run(() => CalculateBasicBuyerFee(basePrice, type), token);
-            var sellersSpecialFeeTask = Task.Run(() => CalculateSellersSpecialFee(basePrice, type), token);
-            var associationCostTask = Task.Run(() => CalculateAssociationFee(basePrice), token);
-            await Task.WhenAll(basicBuyerFeeTask, sellersSpecialFeeTask, associationCostTask);
-
-            var basicBuyerFee = basicBuyerFeeTask.Result;
-            var sellersSpecialFee = sellersSpecialFeeTask.Result;
-            var associationCost = associationCostTask.Result;
+            var basicBuyerFee = await CalculateBasicBuyerFee(basePrice, type, token);
+            var sellersSpecialFee = await  CalculateSellersSpecialFee(basePrice, type, token);
+            var associationCost = await CalculateAssociationFee(basePrice, token);
+            token.ThrowIfCancellationRequested();
 
             var totalCost = basePrice + basicBuyerFee + sellersSpecialFee + associationCost + StorageFee;
 
@@ -39,50 +35,65 @@ namespace Calculation.Domain.Service
             return vehicle;
         }
 
-        protected virtual decimal CalculateBasicBuyerFee(decimal price, Common.VehicleType type, CancellationToken token = default)
+        protected async Task<decimal> CalculateBasicBuyerFee(decimal price, Common.VehicleType type, CancellationToken cancellationToken)
         {
-            decimal fee = price * Common.BasicBuyerFee;
-
-            if (type == Common.VehicleType.Common)
+            return await Task.Run(() =>
             {
-                fee = Math.Clamp(fee, Common.BasicMinimum, Common.BasicMaximum);
-            }
-            else if (type == Common.VehicleType.Luxury)
-            {
-                fee = Math.Clamp(fee, Common.FeeMinimum, Common.FeeMaximum);
-            }
+                cancellationToken.ThrowIfCancellationRequested();
+                decimal fee = price * Common.BasicBuyerFee;
 
-            return fee;
+                if (type == Common.VehicleType.Common)
+                {
+                    fee = Math.Clamp(fee, Common.BasicMinimum, Common.BasicMaximum);
+                }
+                else if (type == Common.VehicleType.Luxury)
+                {
+                    fee = Math.Clamp(fee, Common.FeeMinimum, Common.FeeMaximum);
+                }
+
+                return fee;
+            }, cancellationToken);
         }
 
-        protected decimal CalculateSellersSpecialFee(decimal price, Common.VehicleType type)
+
+        protected async Task<decimal> CalculateSellersSpecialFee(decimal price, Common.VehicleType type, CancellationToken cancellationToken)
         {
-            return type == Common.VehicleType.Luxury ? price * Common.LuxuryFee : price * Common.CommonFee;
+            return await Task.Run(() =>
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                return type == Common.VehicleType.Luxury ? price * Common.LuxuryFee : price * Common.CommonFee;
+            }, cancellationToken);
         }
 
-        protected decimal CalculateAssociationFee(decimal price)
+        protected async Task<decimal> CalculateAssociationFee(decimal price, CancellationToken cancellationToken)
         {
-            if (price < 0)
+            return await Task.Run(() =>
             {
-                return 0;
-            }
-            else if (price is >= 0 and <= 500)
-            {
-                return 5;
-            }
-            else if (price <= 1000)
-            {
-                return 10;
-            }
-            else if (price <= 3000)
-            {
-                return 15;
-            }
-            else
-            {
-                return 20;
-            }
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (price < 0)
+                {
+                    return 0;
+                }
+                else if (price is >= 0 and <= 500)
+                {
+                    return 5;
+                }
+                else if (price <= 1000)
+                {
+                    return 10;
+                }
+                else if (price <= 3000)
+                {
+                    return 15;
+                }
+                else
+                {
+                    return 20;
+                }
+            }, cancellationToken);
         }
+
 
 
     }

@@ -20,6 +20,10 @@ namespace Calculation_Tool.Controllers
         {
             var model = new VehicleModel();
             ViewBag.BasePrice = model.BasePrice;
+            if(_history.Count > 0)
+            {
+                model.History = _history;
+            }
             return View(model);
         }
 
