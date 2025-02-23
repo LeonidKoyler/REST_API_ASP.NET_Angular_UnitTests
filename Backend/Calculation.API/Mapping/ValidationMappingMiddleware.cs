@@ -33,6 +33,21 @@ namespace Calculation.API.Mapping
 
                 await context.Response.WriteAsJsonAsync(validationFailureResponse);
             }
+            catch (ArgumentException ex) 
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                var errorResponse = new { Error = ex.Message };
+
+                await context.Response.WriteAsJsonAsync(errorResponse);
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                var errorResponse = new { Error = $"An unexpected error occurred. {ex.Message}" };
+
+                await context.Response.WriteAsJsonAsync(errorResponse);
+
+            }
         }
     }
 }

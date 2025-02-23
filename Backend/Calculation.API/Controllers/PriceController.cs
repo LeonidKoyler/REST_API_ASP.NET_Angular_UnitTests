@@ -16,7 +16,6 @@ namespace Calculation.API.Controllers
         private readonly ILogger<PriceController> _logger;
         private readonly ISender _vehicleMediator;
 
-        IVehicleService _vehicleCalculator;
         public PriceController(ISender vehicleMediator, ILogger<PriceController> logger)
         {
             _logger = logger;
@@ -27,9 +26,12 @@ namespace Calculation.API.Controllers
         public async Task<IActionResult> Price([FromBody] CalculationRequest request, CancellationToken token)
         {
             // todo should remove duplication of vehicleType
-            VehicleType vehicleType;
-            Enum.TryParse(request.Type, true, out vehicleType);
-            var updatedPrice = await _vehicleMediator.Send(new GetVehiclePrice(request.BasePrice, vehicleType));
+            if (!Enum.TryParse<VehicleType>(request.Type, true, out var vehicleType))
+            {
+                throw new ArgumentException($"Invalid vehicle type: {request.Type}");
+            }
+
+            var updatedPrice = await _vehicleMediator.Send(new GetVehiclePrice(request.BasePrice, vehicleType), token);
             var response = updatedPrice.MapToVehicleResponse();
             return Ok(response);
         }
